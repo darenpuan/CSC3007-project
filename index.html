@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/league.css" />
+    <link rel="stylesheet" href="css/index.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <div class="">
+            <h2>The Carbon Effect</h2>
+            <p>
+              <small>
+                Group P1-10 <br />
+                Tan Quixing Michelle - 1901861 <br />
+                The Nu Win - 1901854 <br />
+                Daren Puan - 1901822
+              </small>
+            </p>
+          </div>
+        </section>
+        <section class="content">
+          <div>
+            <h2>Content</h2>
+            <ul class="textLeft">
+              <li class="fragment">lorem ipsum</li>
+              <li class="fragment">lorem ipsum</li>
+              <li class="fragment">lorem ipsum</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>

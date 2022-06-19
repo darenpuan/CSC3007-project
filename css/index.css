@@ -1,0 +1,18 @@
+:root {
+  --width: 1000px;
+  --top: 220px;
+}
+
+section {
+  width: var(--width);
+  top: var(--top) !important;
+}
+
+section.content div {
+  margin: auto;
+}
+
+.textLeft {
+  width: calc(var(--width) - 300px);
+  text-align: left;
+}
