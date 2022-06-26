@@ -3,10 +3,15 @@
   --top: 220px;
 }
 
-section {
+/* section {
   width: var(--width);
   top: var(--top) !important;
-}
+} */
+
+/* section.content {
+  top: calc(var(--top) - 50px) !important;
+  text-align: left;
+} */
 
 section.content div {
   margin: auto;
@@ -15,4 +20,51 @@ section.content div {
 .textLeft {
   width: calc(var(--width) - 300px);
   text-align: left;
+}
+
+.img1,
+.img2 {
+  height: 350px;
+  width: auto;
+}
+
+.graph1_2 .graph2_2 {
+  width: calc(var(--width) + 300px);
+}
+
+.imgDiv {
+  margin-right: 20px;
+}
+.img2_2 {
+  width: 500px;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.w-55 {
+  width: 55%;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.ta-l {
+  text-align: left;
+}
+
+.solutionPoints {
+  font-size: 30px;
+}
+
+#soln2 .flex {
+  justify-content: space-between;
+}
+#soln2 .imgDiv {
+  width: 45%;
+  margin-right: unset;
 }
