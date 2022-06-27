@@ -68,3 +68,7 @@ section.content div {
   width: 45%;
   margin-right: unset;
 }
+
+#task p{
+  text-align: left;
+}
