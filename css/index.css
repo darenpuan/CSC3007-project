@@ -47,6 +47,10 @@ section.content div {
   width: 300px;
 }
 
+.ma-m4{
+  margin: auto 40px !important;
+}
+
 .flex {
   display: flex;
   flex-direction: row;
