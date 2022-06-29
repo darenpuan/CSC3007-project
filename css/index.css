@@ -42,6 +42,10 @@ section.content div {
   height: 300px;
   margin: unset !important;
 }
+.img_legend{
+  height: 500px;
+  width: 300px;
+}
 
 .flex {
   display: flex;
