@@ -2,6 +2,9 @@
   --width: 1000px;
   --top: 220px;
 }
+.blue{
+  color: var(--r-link-color)
+}
 
 /* section {
   width: var(--width);
@@ -36,12 +39,12 @@ section.content div {
   margin-right: 20px;
 }
 .img2_2 {
-  width: 500px;
+  height: 300px;
+  margin: unset !important;
 }
 
 .flex {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
 }
 
@@ -71,4 +74,14 @@ section.content div {
 
 #task p{
   text-align: left;
+}
+
+.suggestionList ul{
+  width: 100%;
+
+  position: relative;
+}
+
+.suggestionList ul li.fragment{
+  position: absolute;
 }
