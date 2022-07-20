@@ -36,6 +36,7 @@
           console.log(eWaste)
 
           for(i=1; i<data.SrchResults.length; i++){
+            let name = data.SrchResults[i].ADDRESSBUILDINGNAME
             let address = eWaste[data.SrchResults[i].ADDRESSBUILDINGNAME]
             console.log(eWaste[data.SrchResults[i].ADDRESSBUILDINGNAME])
             let add=address.split(",")
@@ -43,6 +44,8 @@
             let lng=add[1]
 
             var marker = L.marker([lat, lng]).addTo(map);
+            marker.bindPopup(name).openPopup();
+
 
           }
         }
