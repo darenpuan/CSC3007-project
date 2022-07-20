@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OneMap2 XYZ (Default)</title>
- 
+
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -13,11 +13,10 @@
     ></script>
     <script src="https://cdn.onemap.sg/leaflet/onemap-leaflet.js"></script>
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.css"
-  />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.js"></script>
-
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.js"></script>
   </head>
   <body>
     <h1>Singapore Map</h1>
@@ -28,25 +27,22 @@
       $.getJSON(
         "https://developers.onemap.sg/privateapi/themesvc/retrieveTheme?queryName=ewaste&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwMzIsInVzZXJfaWQiOjkwMzIsImVtYWlsIjoiMTkwMTgyMkBzaXQuc2luZ2Fwb3JldGVjaC5lZHUuc2ciLCJmb3JldmVyIjpmYWxzZSwiaXNzIjoiaHR0cDpcL1wvb20yLmRmZS5vbmVtYXAuc2dcL2FwaVwvdjJcL3VzZXJcL3Nlc3Npb24iLCJpYXQiOjE2NTgzMzMyODYsImV4cCI6MTY1ODc2NTI4NiwibmJmIjoxNjU4MzMzMjg2LCJqdGkiOiI0YWQ5N2UxNDhmZTM1MWE4NTc4ZGY3ODljN2QzYmFjOSJ9.0Wpsxy0DtjbZwn09vvAEk_aLqhmjhCM6xkGIKp1c-Ko",
         function (data) {
-          console.log(data.SrchResults)
-          eWaste=[];
-          data.SrchResults.forEach((eWasteData)=>{
-            eWaste[eWasteData.ADDRESSBUILDINGNAME]=eWasteData.LatLng
-          })
-          console.log(eWaste)
+          console.log(data.SrchResults);
+          eWaste = [];
+          data.SrchResults.forEach((eWasteData) => {
+            eWaste[eWasteData.ADDRESSBUILDINGNAME] = eWasteData.LatLng;
+          });
+          // console.log(eWaste)
 
-          for(i=1; i<data.SrchResults.length; i++){
-            let name = data.SrchResults[i].ADDRESSBUILDINGNAME
-            let address = eWaste[data.SrchResults[i].ADDRESSBUILDINGNAME]
-            console.log(eWaste[data.SrchResults[i].ADDRESSBUILDINGNAME])
-            let add=address.split(",")
-            let lat = add[0]
-            let lng=add[1]
+          for (i = 1; i < data.SrchResults.length; i++) {
+            let name = data.SrchResults[i].ADDRESSBUILDINGNAME;
+            let address = eWaste[data.SrchResults[i].ADDRESSBUILDINGNAME];
+            let add = address.split(",");
+            let lat = add[0];
+            let lng = add[1];
 
             var marker = L.marker([lat, lng]).addTo(map);
             marker.bindPopup(name).openPopup();
-
-
           }
         }
       );
