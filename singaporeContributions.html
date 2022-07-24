@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
+      integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- Initialize a select button -->
+    <select id="selectButton"></select>
+
+    <!-- Create a div where the graph will take place -->
+    <div id="my_dataviz"></div>
+  </body>
+  <script>
+    // set the dimensions and margins of the graph
+    const margin = { top: 10, right: 30, bottom: 30, left: 60 },
+      width = 460 - margin.left - margin.right,
+      height = 400 - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    const svg = d3
+      .select("#my_dataviz")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+    //Read the data
+    d3.csv("./owid-co2-data.csv").then(function (data) {
+      let sg = [];
+
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].country.toUpperCase() == "SINGAPORE") {
+          sg[data[i].year] = data[i];
+        }
+      }
+
+      const filteredSG = _.filter(sg, Boolean);
+      console.log(filteredSG);
+
+      //   delete filteredSG[0].cement_co2
+      // console.log(Object.keys(filteredSG[1]))
+
+      //   for(let x=0; x<filteredSG.length; x++){
+      //     console.log(filteredSG[x].co2)
+      //   }
+
+      const allYear = new Set(filteredSG.map((d) => d.year));
+      console.log(allYear);
+      var allType = Object.keys(filteredSG[1]);
+      console.log(allType);
+      let selected = "co2";
+
+      // add the options to the button
+      d3.select("#selectButton")
+        .selectAll("options")
+        .data(allType)
+        .enter()
+        .append("option")
+        .text(function (d) {
+          return d;
+        })
+        .attr("value", function (d) {
+          return d;
+        });
+
+      d3.select("#selectButton").on("change", function (event, d) {
+        const selectOption = d3.select(this).property("value");
+        // console.log(selectOption);
+        update(selectOption);
+      });
+
+      function update(selectOption) {
+        const dataFilter = filteredSG.filter(function (d) {
+          // console.log(d[selectOption]);
+          selected = selectOption
+          return d[selectOption];
+        });
+     
+      // svg.append("g").call(d3.axisLeft(y));
+        line
+          .datum(dataFilter)
+          .transition()
+          .duration(1000)
+          .attr(
+            "d",
+            d3
+              .line()
+              .x(function (d) {
+                return x(d.year);
+              })
+              .y(function (d) {
+                return y(+d[selectOption]);
+              })
+          )
+          .attr("stroke", function (d) {
+            return myColor(selectOption);
+          });
+      }
+
+      var myColor = d3.scaleOrdinal().domain(allType).range(d3.schemeSet2);
+
+      // Add X axis --> it is a date format
+      var x = d3
+        .scaleLinear()
+        .domain(
+          d3.extent(filteredSG, function (d) {
+            return d.year;
+          })
+        )
+        .range([0, width]);
+      svg
+        .append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x).ticks(7));
+
+      // Add Y axis
+      var y = d3
+        .scaleLinear()
+        .domain([
+          0,
+          d3.max(filteredSG, function (d) {
+            console.log(selected)
+            return +d[selected];
+          }),
+        ])
+        .range([height, 0]);
+      svg.append("g").call(d3.axisLeft(y));
+
+      // Initialize line with first group of the list
+      var line = svg
+        .append("g")
+        .append("path")
+        .datum(
+          filteredSG.filter(function (d) {
+            return allType[0];
+          })
+        )
+        .attr(
+          "d",
+          d3
+            .line()
+            .x(function (d) {
+              return x(d.year);
+            })
+            .y(function (d) {
+              return y(+d[selected]);
+            })
+        )
+        .attr("stroke", function (d) {
+          return myColor("valueA");
+        })
+        .style("stroke-width", 4)
+        .style("fill", "none");
+    });
+  </script>
+</html>
