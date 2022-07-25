@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  width: 100%;
+  height: 100%;
+  /* Text styles */
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: #212121;
+  perspective: 4px; /* The depth */
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+header {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("../img/low-angle-shot-factory-with-smoke-steam-coming-out-chimneys-captured-sunset.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+header div {
+  position: absolute;
+  top: 40%;
+  padding: 0 30px;
+  display: block;
+  font-family: sans-serif;
+}
+header h1 {
+  font-size: 4.5rem;
+  font-weight: 700;
+  width: 90%;
+  margin: auto;
+  color: #fffafa;
+}
+header h2 {
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: #fcfcf5;
+  width: 90%;
+  margin: auto;
+}
+a {
+  color: #fcfcf5;
+  text-decoration: none;
+}
+/* Icon Down */
+@-webkit-keyframes hvr-icon-down {
+  0%,
+  50%,
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  25%,
+  75% {
+    -webkit-transform: translateY(6px);
+    transform: translateY(6px);
+  }
+}
+@keyframes hvr-icon-down {
+  0%,
+  50%,
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  25%,
+  75% {
+    -webkit-transform: translateY(6px);
+    transform: translateY(6px);
+  }
+}
+/* Icon Down */
+.hvr-icon-down {
+  display: block;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  width: fit-content;
+  margin: auto;
+  margin-top: 100px;
+  font-size: 25px;
+}
+.hvr-icon-down .hvr-icon {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.hvr-icon-down:hover .hvr-icon,
+.hvr-icon-down:focus .hvr-icon,
+.hvr-icon-down:active .hvr-icon {
+  -webkit-animation-name: hvr-icon-down;
+  animation-name: hvr-icon-down;
+  -webkit-animation-duration: 0.75s;
+  animation-duration: 0.75s;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+}
+
+section {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  background-color: #fdfcfc;
+}
+section#first,
+section#third {
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+}
+section#second {
+  background-image: url("https://www.transparenttextures.com/patterns/green-dust-and-scratches.png");
+}
+.container {
+  margin: auto;
+  max-width: 1080px;
+  padding: 80px 40px;
+}
+.container h3 {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+}
+.container p {
+  padding-top: 30px;
+  line-height: 1.8;
+}
+
+.footerContainer {
+  border-top: 0.6px solid #aaaaaa;
+}
+footer div{
+    margin: auto;
+    width: fit-content;
+    padding: 20px 20px;
+}
