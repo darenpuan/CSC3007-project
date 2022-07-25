@@ -1,69 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OneMap2 XYZ (Default)</title>
 
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdn.onemap.sg/leaflet/onemap-leaflet.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.css"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.js"></script>
-  </head>
-  <body>
-    <h1>Singapore Map</h1>
-    <div id="mapdiv" style="height: 800px"></div>
-  </body>
-  <script>
-    $(document).ready(function () {
-      $.getJSON(
-        "https://developers.onemap.sg/privateapi/themesvc/retrieveTheme?queryName=ewaste&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwMzIsInVzZXJfaWQiOjkwMzIsImVtYWlsIjoiMTkwMTgyMkBzaXQuc2luZ2Fwb3JldGVjaC5lZHUuc2ciLCJmb3JldmVyIjpmYWxzZSwiaXNzIjoiaHR0cDpcL1wvb20yLmRmZS5vbmVtYXAuc2dcL2FwaVwvdjJcL3VzZXJcL3Nlc3Npb24iLCJpYXQiOjE2NTgzMzMyODYsImV4cCI6MTY1ODc2NTI4NiwibmJmIjoxNjU4MzMzMjg2LCJqdGkiOiI0YWQ5N2UxNDhmZTM1MWE4NTc4ZGY3ODljN2QzYmFjOSJ9.0Wpsxy0DtjbZwn09vvAEk_aLqhmjhCM6xkGIKp1c-Ko",
-        function (data) {
-          console.log(data.SrchResults);
-          eWaste = [];
-          data.SrchResults.forEach((eWasteData) => {
-            eWaste[eWasteData.ADDRESSBUILDINGNAME] = eWasteData.LatLng;
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OneMap2 XYZ (Default)</title>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.onemap.sg/leaflet/onemap-leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+</head>
+
+<body>
+  <h1>Singapore Map</h1>
+  <div id="mapdiv" style="height: 620px"></div>
+</body>
+<style>
+  .legend {
+    padding: 6px 8px;
+    background: white;
+    line-height: 25px;
+    font-size: 12px;
+    font-weight: 300;
+    color: #555;
+    width: auto;
+    border-radius: 5px;
+  }
+
+  .legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+  }
+</style>
+
+<script>
+  function getColorLegend(qty) {
+    if (qty < 40) {
+      return 'green';
+    } else if (qty < 100) {
+      return 'yellow';
+    } else if (qty < 300) {
+      return 'orange';
+    } else if (qty < 350) {
+      return 'red';
+    } else {
+      return 'purple';
+    }
+  }
+  $(document).ready(function () {
+    $.getJSON(
+      "https://developers.onemap.sg/privateapi/themesvc/retrieveTheme?queryName=ewaste&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwNDIsInVzZXJfaWQiOjkwNDIsImVtYWlsIjoibWljaC50YW4xOTk4QGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTY1ODcyNDU3NSwiZXhwIjoxNjU5MTU2NTc1LCJuYmYiOjE2NTg3MjQ1NzUsImp0aSI6ImEwMzIzZmVlMGQ2MGM2ODYzM2U0ZjMzNzNjNTRjNmZhIn0.k1-GQsJ8_-LethUfSf3xeFNZ_OMtTR-WIeZ3LcrlGqU",
+      function (data) {
+
+        eWaste = [];
+        data.SrchResults.forEach((eWasteData) => {
+          eWaste[eWasteData.ADDRESSBUILDINGNAME] = eWasteData.LatLng;
+        });
+
+
+        for (i = 1; i < data.SrchResults.length; i++) {
+          let name = data.SrchResults[i].ADDRESSBUILDINGNAME;
+          let address = eWaste[data.SrchResults[i].ADDRESSBUILDINGNAME];
+          let add = address.split(",");
+          let lat = add[0];
+          let lng = add[1];
+
+          var eWasteIcon = L.AwesomeMarkers.icon({
+            icon: 'recycle',
+            prefix: 'fa',
+            markerColor: 'green'
           });
-          // console.log(eWaste)
 
-          for (i = 1; i < data.SrchResults.length; i++) {
-            let name = data.SrchResults[i].ADDRESSBUILDINGNAME;
-            let address = eWaste[data.SrchResults[i].ADDRESSBUILDINGNAME];
-            let add = address.split(",");
-            let lat = add[0];
-            let lng = add[1];
-
-            var marker = L.marker([lat, lng]).addTo(map);
-            marker.bindPopup(name).openPopup();
-          }
+          var eWasteMarker = L.marker([lat, lng], { icon: eWasteIcon })
+            .bindPopup(name).openPopup();
+          markers.addLayer(eWasteMarker);
         }
-      );
-    });
-    var center = L.bounds([1.56073, 104.11475], [1.16, 103.502]).getCenter();
-    var map = L.map("mapdiv").setView([center.x, center.y], 12);
 
-    var basemap = L.tileLayer(
-      "https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png",
-      {
-        detectRetina: true,
-        maxZoom: 18,
-        minZoom: 11,
       }
     );
+  });
 
-    map.setMaxBounds([
-      [1.56073, 104.1147],
-      [1.16, 103.502],
-    ]);
+  $(document).ready(function () {
+    $.getJSON(
+      "https://developers.onemap.sg/privateapi/themesvc/retrieveTheme?queryName=secondhandcollecn&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwNDIsInVzZXJfaWQiOjkwNDIsImVtYWlsIjoibWljaC50YW4xOTk4QGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTY1ODcyNDU3NSwiZXhwIjoxNjU5MTU2NTc1LCJuYmYiOjE2NTg3MjQ1NzUsImp0aSI6ImEwMzIzZmVlMGQ2MGM2ODYzM2U0ZjMzNzNjNTRjNmZhIn0.k1-GQsJ8_-LethUfSf3xeFNZ_OMtTR-WIeZ3LcrlGqU",
+      function (secHandData) {
 
-    basemap.addTo(map);
-  </script>
+        secHandAreaData = [];
+
+        secHandData.SrchResults.forEach((secHandAreaData) => {
+          secHandAreaData[secHandAreaData.ADDRESSBUILDINGNAME] = secHandAreaData.LatLng;
+        });
+
+        for (i = 1; i < secHandData.SrchResults.length; i++) {
+          let name = secHandData.SrchResults[i].NAME;
+          let latlng = secHandData.SrchResults[i].LatLng;
+          let add = latlng.split(",");
+          let lat = add[0];
+          let lng = add[1];
+
+
+          var secHandIcon = L.AwesomeMarkers.icon({
+            icon: 'shop',
+            prefix: 'fa',
+            markerColor: 'red'
+          });
+          var secHandMarker = L.marker([lat, lng], { icon: secHandIcon })
+            .bindPopup(name).openPopup();
+          markers.addLayer(secHandMarker);
+        }
+      }
+    );
+  });
+
+  var markers = L.markerClusterGroup();
+  var center = L.bounds([1.56073, 104.11475], [1.16, 103.502]).getCenter();
+  var map = L.map("mapdiv").setView([center.x, center.y], 12);
+
+  var basemap = L.tileLayer(
+    "https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png",
+    {
+      detectRetina: true,
+      maxZoom: 18,
+      minZoom: 11,
+    }
+  );
+
+  map.setMaxBounds([
+    [1.56073, 104.1147],
+    [1.16, 103.502],
+  ]);
+
+  basemap.addTo(map);
+  map.addLayer(markers);
+
+  var legend = L.control({ position: 'bottomright' });
+  legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend'),
+      labels = ["<h3>Legend</h3>"],
+      grades = [0, 40, 100, 300, 350]
+    //labels = [];
+
+    for (var i = 0; i < grades.length; i++) {
+      div.innerHTML += labels.push(
+        '<i style="background:' + getColorLegend(grades[i] + 1) + '"></i> ' +
+        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+'));
+    }
+    div.innerHTML = labels.join("</div>");
+    return div;
+  };
+  legend.addTo(map);
+
+</script>
+
 </html>
