@@ -108,19 +108,40 @@
           return d[selectOption];
         });
 
-        y.domain([
-          0,
-          d3.max(filteredSG, function (d) {
-            return +d[selectOption];
-          }),
-        ])
-        .range([height, 0]);
+        svg.selectAll("g").remove();
 
-        // svg.append("g").call(d3.axisLeft(y));
+        y = d3
+          .scaleLinear()
+          .domain([
+            0,
+            d3.max(filteredSG, function (d) {
+              return +d[selected];
+            }),
+          ])
+          .range([height, 0]);
+        svg.append("g").call(d3.axisLeft(y));
+
+        x = d3
+          .scaleLinear()
+          .domain(
+            d3.extent(filteredSG, function (d) {
+              return d.year;
+            })
+          )
+          .range([0, width]);
+        svg
+          .append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x).ticks(7));
+          
+        line = svg.append("g").append("path");
+
         line
-          .datum(dataFilter)
-          .transition()
-          .duration(1000)
+          .datum(
+            filteredSG.filter(function (d) {
+              return allType[0];
+            })
+          )
           .attr(
             "d",
             d3
@@ -129,12 +150,18 @@
                 return x(d.year);
               })
               .y(function (d) {
-                return y(+d[selectOption]);
+                return y(+d[selected]);
               })
           )
           .attr("stroke", function (d) {
             return myColor(selectOption);
-          });
+          })
+          .style("stroke-width", 4)
+          .style("fill", "none");
+          // .transition()
+          // .duration(1000);
+
+
       }
 
       var myColor = d3.scaleOrdinal().domain(allType).range(d3.schemeSet2);
