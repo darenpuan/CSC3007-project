@@ -109,14 +109,14 @@ $(document).ready(function () {
   var legend = L.control({ position: 'bottomright' });
   legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend'),
-      labels = ["<h4>Legend</h4>"],
+      labels = ["<h4 class='leafletLegend'>Legend:</h4>"],
       grades = ["E-Waste Recycle", "Second-Hand Shops"]
     icons = ["recycle", "shop"]
 
 
     for (var i = 0; i < grades.length; i++) {
       div.innerHTML += labels.push(
-        grades[i] + ("<i class='fa-solid fa-" + icons[i] + "'></i>") + '<br>')
+       ("<span class='"+icons[i]+"'>"+ grades[i]+"</span>") + ("<i class='fa-solid fa-" + icons[i] + "'></i>") + '<br>')
     }
     div.innerHTML = labels.join("</div>");
     return div;

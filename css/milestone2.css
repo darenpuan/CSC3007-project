@@ -330,3 +330,22 @@ footer div{
   color: transparent;
   text-shadow: 0 0 0 #212529;
 }
+
+i.fa-solid.fa-recycle, .recycle {
+  color: #72af26;
+  padding-top: 3px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+i.fa-solid.fa-shop, .shop {
+  color: #d43e2a;
+  padding-top: 3px;
+  font-weight: bold;
+  font-size: 1.2em;
+
+}
+.leafletLegend{
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
