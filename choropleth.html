@@ -9,13 +9,13 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
   </head>
   <body>
-    <svg></svg>
+    <svg class="map"></svg>
     <div class="tooltip"></div>
     <script>
       let width = 1000,
         height = 600;
 
-      let svg = d3.select("svg").attr("width", width).attr("height", height);
+      let svg = d3.select(".map").attr("width", width).attr("height", height);
       // Map and projection
 
       let projection = d3.geoEquirectangular();

@@ -11,6 +11,46 @@
       rel="stylesheet"
       media="all"
     />
+    <script
+      src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
+      integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.onemap.sg/leaflet/onemap-leaflet.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <!-- <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css"
+      rel="stylesheet"
+    /> -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
   </head>
   <body>
     <header>
@@ -27,7 +67,19 @@
     </header>
     <section id="first">
       <div class="container">
-        <h3>Some cool title here</h3>
+        
+        <h3>
+          World CO2 Emmissions
+          <div class="popup" onclick="popMap()">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            <span class="popuptext" id="popupMap">Popup text...</span>
+          </div>
+        </h3>
+        <div class="textC">
+          <svg class="map"></svg>
+          <div class="tooltip"></div>
+        </div>
+
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
           harum veritatis nemo magni odio reprehenderit atque, esse animi porro
@@ -47,55 +99,81 @@
       </div>
     </section>
     <section id="second">
-        <div class="container">
-          <h3>Some cool title here</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
-            harum veritatis nemo magni odio reprehenderit atque, esse animi porro
-            suscipit vero nobis modi quis. Exercitationem quasi beatae, assumenda
-            officia illum sunt. Cum voluptas maiores vitae eius hic inventore
-            deleniti placeat perferendis quam ut nostrum maxime optio voluptatibus
-            ab laboriosam, quia consectetur atque minus?
-          </p>
-          <p>
-            Adipisci amet aut sint voluptates delectus aperiam? Veniam ab illum
-            enim in libero nihil culpa explicabo perspiciatis veritatis non
-            repellendus architecto excepturi nostrum porro voluptatem aperiam
-            animi asperiores, a voluptatibus temporibus minima voluptas ipsa!
-            Recusandae nostrum, aut, voluptates est error iusto, eaque excepturi
-            soluta quas maiores amet.
-          </p>
-        </div>
-      </section>
-      <section id="third">
-        <div class="container">
-          <h3>Some cool title here</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
-            harum veritatis nemo magni odio reprehenderit atque, esse animi porro
-            suscipit vero nobis modi quis. Exercitationem quasi beatae, assumenda
-            officia illum sunt. Cum voluptas maiores vitae eius hic inventore
-            deleniti placeat perferendis quam ut nostrum maxime optio voluptatibus
-            ab laboriosam, quia consectetur atque minus?
-          </p>
-          <p>
-            Adipisci amet aut sint voluptates delectus aperiam? Veniam ab illum
-            enim in libero nihil culpa explicabo perspiciatis veritatis non
-            repellendus architecto excepturi nostrum porro voluptatem aperiam
-            animi asperiores, a voluptatibus temporibus minima voluptas ipsa!
-            Recusandae nostrum, aut, voluptates est error iusto, eaque excepturi
-            soluta quas maiores amet.
-          </p>
-        </div>
-      </section>
-      <div class="footerContainer">
-        <footer
-          class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top"
-        >
-          <div class="col-md-4 d-flex align-items-center">
-            <span class="mb-3 mb-md-0 text-muted">© 2022 Daren</span>
+      <div class="container">
+        <h3>
+          Singapore CO2 Emmissions
+          <div class="popup" onclick="popLine()">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            <span class="popuptext" id="popupLine">Popup text...</span>
           </div>
-        </footer>
+        </h3>
+        <div class="flex mt-2">
+          <div class="graphDiv">
+            <div class="">
+              <select id="selectButton" class="form-select"></select>
+
+              <div id="lineChart"></div>
+            </div>
+          </div>
+          <div class="textDiv">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus
+            mollitia, perferendis sunt nemo, magnam modi saepe sapiente esse,
+            ipsum dolores dolorem officia exercitationem minima aperiam. Itaque
+            beatae illo dolorum ex!<br />Magnam obcaecati sit tempora possimus
+            recusandae modi sint, quam accusamus, adipisci voluptatem eligendi
+            consectetur ipsa, dolorem voluptatibus corrupti ducimus quisquam
+            doloribus aliquid porro explicabo facilis cum! Sit vel hic earum?<br />Dicta
+            fugiat saepe dolore, accusantium eos expedita explicabo, delectus
+            quasi consectetur corporis accusamus maxime laborum veniam quam,
+            officiis dolor odio itaque fugit magni culpa natus nihil inventore
+            omnis. Ipsum, et!<br />
+          </div>
+        </div>
       </div>
+    </section>
+    <section id="third">
+      <div class="container">
+
+        <div class="graph3">
+          <h3>
+            Singapore Recycling Areas
+            <div class="popup" onclick="popLeaf()">
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
+              <span class="popuptext" id="popupLeaf">Popup text...</span>
+            </div>
+          </h3>
+          <div class="container">
+            <div class="row mt-12" id="mapdiv" style="height: 620px"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="footerContainer">
+      <footer
+        class="d-flex flex-wrap justify-content-between align-items-center border-top"
+      >
+        <div class="d-flex align-items-center">
+          <span class="mb-3 mb-md-0 text-muted">© 2022 CSC3007 Team 10</span>
+        </div>
+      </footer>
+    </div>
   </body>
+  <script src="js/choropleth.js"></script>
+  <script src="js/singaporeContribution.js"></script>
+  <script src="js/recyclingArea.js"></script>
+  <script>
+    // When the user clicks on <div>, open the popup
+    function popLine() {
+      var popup = document.getElementById("popupLine");
+      popup.classList.toggle("show");
+    }
+    function popMap() {
+      var popup = document.getElementById("popupMap");
+      popup.classList.toggle("show");
+    }
+    function popLeaf() {
+      var popup = document.getElementById("popupLeaf");
+      popup.classList.toggle("show");
+    }
+  </script>
 </html>

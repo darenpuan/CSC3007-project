@@ -1,65 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OneMap2 XYZ (Default)</title>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.onemap.sg/leaflet/onemap-leaflet.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css" />
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet" /> -->
-</head>
-
-<body>
-  <h1>Singapore Map</h1>
-  <div class="container">
-    <div class="row mt-12" id="mapdiv" style="height: 390px; width: 700px;"></div>
-  </div>
-</body>
-
-<style>
-  .legend {
-    padding: 6px 8px;
-    background: white;
-    line-height: 20px;
-    font-size: 12px;
-    font-weight: 300;
-    color: #555;
-    opacity: 0.9;
-    width: auto;
-    border-radius: 5px;
-  }
-
-  .legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-  }
-
-  small {
-    text-transform: capitalize;
-  }
-</style>
-
-<script>
-
-  $(document).ready(function () {
+$(document).ready(function () {
     $.getJSON(
       "https://developers.onemap.sg/privateapi/themesvc/retrieveTheme?queryName=ewaste&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwNDIsInVzZXJfaWQiOjkwNDIsImVtYWlsIjoibWljaC50YW4xOTk4QGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTY1ODcyNDU3NSwiZXhwIjoxNjU5MTU2NTc1LCJuYmYiOjE2NTg3MjQ1NzUsImp0aSI6ImEwMzIzZmVlMGQ2MGM2ODYzM2U0ZjMzNzNjNTRjNmZhIn0.k1-GQsJ8_-LethUfSf3xeFNZ_OMtTR-WIeZ3LcrlGqU",
       function (data) {
@@ -147,30 +86,30 @@
 
   var markers = L.markerClusterGroup();
   var center = L.bounds([1.56073, 104.1147], [1.16, 103.502]).getCenter();
-  var map = L.map("mapdiv").setView([center.x, center.y], 11);
+  var map = L.map("mapdiv").setView([center.x, center.y], 12);
 
   var basemap = L.tileLayer(
     "https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png",
     {
       detectRetina: true,
       maxZoom: 18,
-      minZoom: 8,
+      minZoom: 12,
 
     }
   );
 
   map.setMaxBounds([
     [1.56073, 104.11475],
-    [1.223736, 103.590461],
+    [1.16, 103.502],
   ]);
 
   basemap.addTo(map);
   map.addLayer(markers);
- 
+
   var legend = L.control({ position: 'bottomright' });
   legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend'),
-      labels = ["<h3>Legend</h3>"],
+      labels = ["<h4>Legend</h4>"],
       grades = ["E-Waste Recycle", "Second-Hand Shops"]
     icons = ["recycle", "shop"]
 
@@ -183,7 +122,3 @@
     return div;
   };
   legend.addTo(map);
-
-</script>
-
-</html>
