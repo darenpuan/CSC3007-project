@@ -26,16 +26,20 @@
 
 <body>
   <h1>Singapore Map</h1>
+
   <div id="mapdiv" style="height: 620px"></div>
+
+
 </body>
 <style>
   .legend {
     padding: 6px 8px;
     background: white;
-    line-height: 25px;
+    line-height: 20px;
     font-size: 12px;
     font-weight: 300;
     color: #555;
+    opacity: 0.9;
     width: auto;
     border-radius: 5px;
   }
@@ -45,29 +49,20 @@
     height: 18px;
     float: left;
     margin-right: 8px;
-    opacity: 0.7;
   }
+
+  small {
+    text-transform: capitalize;
+  }
+
 </style>
 
 <script>
-  function getColorLegend(qty) {
-    if (qty < 40) {
-      return 'green';
-    } else if (qty < 100) {
-      return 'yellow';
-    } else if (qty < 300) {
-      return 'orange';
-    } else if (qty < 350) {
-      return 'red';
-    } else {
-      return 'purple';
-    }
-  }
+
   $(document).ready(function () {
     $.getJSON(
       "https://developers.onemap.sg/privateapi/themesvc/retrieveTheme?queryName=ewaste&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwNDIsInVzZXJfaWQiOjkwNDIsImVtYWlsIjoibWljaC50YW4xOTk4QGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTY1ODcyNDU3NSwiZXhwIjoxNjU5MTU2NTc1LCJuYmYiOjE2NTg3MjQ1NzUsImp0aSI6ImEwMzIzZmVlMGQ2MGM2ODYzM2U0ZjMzNzNjNTRjNmZhIn0.k1-GQsJ8_-LethUfSf3xeFNZ_OMtTR-WIeZ3LcrlGqU",
       function (data) {
-
         eWaste = [];
         data.SrchResults.forEach((eWasteData) => {
           eWaste[eWasteData.ADDRESSBUILDINGNAME] = eWasteData.LatLng;
@@ -75,11 +70,17 @@
 
 
         for (i = 1; i < data.SrchResults.length; i++) {
+          let fullAdd = "";
           let name = data.SrchResults[i].ADDRESSBUILDINGNAME;
-          let address = eWaste[data.SrchResults[i].ADDRESSBUILDINGNAME];
-          let add = address.split(",");
-          let lat = add[0];
-          let lng = add[1];
+          let coord = eWaste[data.SrchResults[i].ADDRESSBUILDINGNAME];
+          let address = data.SrchResults[i].ADDRESSSTREETNAME;
+          let postal = data.SrchResults[i].ADDRESSPOSTALCODE;
+          fullAdd = fullAdd.concat(address.toLowerCase() , " " , postal);
+          let desc = data.SrchResults[i].DESCRIPTION;
+
+          let latLng = coord.split(",");
+          let lat = latLng[0];
+          let lng = latLng[1];
 
           var eWasteIcon = L.AwesomeMarkers.icon({
             icon: 'recycle',
@@ -88,7 +89,8 @@
           });
 
           var eWasteMarker = L.marker([lat, lng], { icon: eWasteIcon })
-            .bindPopup(name).openPopup();
+            .bindPopup(name + '</br><p><small>' + "Address: " + fullAdd + '</br>' + "Description: " + desc + "</small></p>").openPopup();
+
           markers.addLayer(eWasteMarker);
         }
 
@@ -100,7 +102,7 @@
     $.getJSON(
       "https://developers.onemap.sg/privateapi/themesvc/retrieveTheme?queryName=secondhandcollecn&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwNDIsInVzZXJfaWQiOjkwNDIsImVtYWlsIjoibWljaC50YW4xOTk4QGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTY1ODcyNDU3NSwiZXhwIjoxNjU5MTU2NTc1LCJuYmYiOjE2NTg3MjQ1NzUsImp0aSI6ImEwMzIzZmVlMGQ2MGM2ODYzM2U0ZjMzNzNjNTRjNmZhIn0.k1-GQsJ8_-LethUfSf3xeFNZ_OMtTR-WIeZ3LcrlGqU",
       function (secHandData) {
-
+        console.log(secHandData);
         secHandAreaData = [];
 
         secHandData.SrchResults.forEach((secHandAreaData) => {
@@ -108,11 +110,26 @@
         });
 
         for (i = 1; i < secHandData.SrchResults.length; i++) {
+          let fullAdd = "";
           let name = secHandData.SrchResults[i].NAME;
           let latlng = secHandData.SrchResults[i].LatLng;
-          let add = latlng.split(",");
-          let lat = add[0];
-          let lng = add[1];
+          let blkNo = secHandData.SrchResults[i].ADDRESSBLOCKHOUSENUMBER;
+          let streetName = secHandData.SrchResults[i].ADDRESSSTREETNAME;
+          let unitNo = secHandData.SrchResults[i].ADDRESSUNITNUMBER;
+          let postalCode = secHandData.SrchResults[i].ADDRESSPOSTALCODE;
+          let desc = secHandData.SrchResults[i].DESCRIPTION;
+
+          if (unitNo != undefined) {
+            fullAdd = fullAdd.concat(blkNo, " ", streetName, " ", unitNo, " ", postalCode);
+          }
+          else {
+            unitNo = "";
+            fullAdd = fullAdd.concat(blkNo, " ", streetName, " ", unitNo, " ", postalCode);
+          }
+
+          let latLng = latlng.split(",");
+          let lat = latLng[0];
+          let lng = latLng[1];
 
 
           var secHandIcon = L.AwesomeMarkers.icon({
@@ -121,7 +138,7 @@
             markerColor: 'red'
           });
           var secHandMarker = L.marker([lat, lng], { icon: secHandIcon })
-            .bindPopup(name).openPopup();
+            .bindPopup(name + '</br><p><small>' + "Address: " + fullAdd + '</br>' + "Description: " + desc + "</small></p>").openPopup();
           markers.addLayer(secHandMarker);
         }
       }
@@ -129,7 +146,7 @@
   });
 
   var markers = L.markerClusterGroup();
-  var center = L.bounds([1.56073, 104.11475], [1.16, 103.502]).getCenter();
+  var center = L.bounds([1.56073, 104.1147], [1.16, 103.502]).getCenter();
   var map = L.map("mapdiv").setView([center.x, center.y], 12);
 
   var basemap = L.tileLayer(
@@ -137,12 +154,13 @@
     {
       detectRetina: true,
       maxZoom: 18,
-      minZoom: 11,
+      minZoom: 12,
+
     }
   );
 
   map.setMaxBounds([
-    [1.56073, 104.1147],
+    [1.56073, 104.11475],
     [1.16, 103.502],
   ]);
 
@@ -153,13 +171,13 @@
   legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend'),
       labels = ["<h3>Legend</h3>"],
-      grades = [0, 40, 100, 300, 350]
-    //labels = [];
+      grades = ["E-Waste Recycle", "Second-Hand Shops"]
+    icons = ["recycle", "shop"]
+
 
     for (var i = 0; i < grades.length; i++) {
       div.innerHTML += labels.push(
-        '<i style="background:' + getColorLegend(grades[i] + 1) + '"></i> ' +
-        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+'));
+        grades[i] + ("<i class='fa-solid fa-" + icons[i] + "'></i>") + '<br>')
     }
     div.innerHTML = labels.join("</div>");
     return div;
