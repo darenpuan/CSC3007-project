@@ -50,7 +50,19 @@ header {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
+.pMM2{
+  position: relative;
+  justify-content: end;
+  display: flex;
+  padding: 20px;
+}
+a.linkMM2 {
+  font-size: 15px;
+  color: darkgrey !important;
+}
+a.linkMM2:hover{
+  color: rgb(5, 194, 194) !important;
+}
 header div {
   position: absolute;
   top: 40%;
