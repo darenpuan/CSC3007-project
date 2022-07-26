@@ -26,11 +26,9 @@
 
 <body>
   <h1>Singapore Map</h1>
-
   <div id="mapdiv" style="height: 620px"></div>
-
-
 </body>
+
 <style>
   .legend {
     padding: 6px 8px;
@@ -54,7 +52,6 @@
   small {
     text-transform: capitalize;
   }
-
 </style>
 
 <script>
@@ -75,7 +72,7 @@
           let coord = eWaste[data.SrchResults[i].ADDRESSBUILDINGNAME];
           let address = data.SrchResults[i].ADDRESSSTREETNAME;
           let postal = data.SrchResults[i].ADDRESSPOSTALCODE;
-          fullAdd = fullAdd.concat(address.toLowerCase() , " " , postal);
+          fullAdd = fullAdd.concat(address.toLowerCase(), " ", postal);
           let desc = data.SrchResults[i].DESCRIPTION;
 
           let latLng = coord.split(",");
@@ -161,7 +158,7 @@
 
   map.setMaxBounds([
     [1.56073, 104.11475],
-    [1.222491, 103.609550],
+    [1.16, 103.502],
   ]);
 
   basemap.addTo(map);
