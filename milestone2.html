@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Milestone 2</title>
     <link rel="stylesheet" href="./css/milestone2.css" />
     <link
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
@@ -51,10 +51,14 @@
       rel="stylesheet"
     /> -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="dropdown_options.js"></script>
   </head>
   <body>
     <header>
-      <p class="pMM2"><small><a href="./index.html" class="linkMM2">Milestone 1</a></small></p>
+      <p class="pMM2">
+        <small><a href="./index.html" class="linkMM2">Milestone 1</a></small>
+      </p>
 
       <div class="">
         <h1>The Carbon Effect</h1>
@@ -69,27 +73,36 @@
     </header>
     <section id="first">
       <div class="container">
-        
-        <h3>
-          World CO2 Emmissions
+        <div class="">
+          <h2>
+            Climate change is a global challenge that requires a global
+            response.
+          </h2>
+          <p>
+            Carbon dioxide emissions are the primary driver of global climate
+            change. It’s widely recognised that to avoid the worst impacts of
+            climate change, the world needs to urgently reduce emissions. But,
+            how this responsibility is shared between regions, countries, and
+            individuals has been an endless point of contention in international
+            discussions.
+          </p>
+        </div>
+        <h3 class="mt-2">
+          World Cumulative CO2 Emmissions
           <div class="popup" onclick="popMap()">
             <i class="fa fa-info-circle" aria-hidden="true"></i>
             <span class="popuptext" id="popupMap">Popup text...</span>
           </div>
         </h3>
         <div class="textC">
+          <div class="dInline">
+            <label for="dropdown">Year: &nbsp;</label>
+            <select id="dropdown" class="form-select w-20"></select>
+          </div>
           <svg class="map"></svg>
           <div class="tooltip"></div>
         </div>
 
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
-          harum veritatis nemo magni odio reprehenderit atque, esse animi porro
-          suscipit vero nobis modi quis. Exercitationem quasi beatae, assumenda
-          officia illum sunt. Cum voluptas maiores vitae eius hic inventore
-          deleniti placeat perferendis quam ut nostrum maxime optio voluptatibus
-          ab laboriosam, quia consectetur atque minus?
-        </p>
         <p>
           Adipisci amet aut sint voluptates delectus aperiam? Veniam ab illum
           enim in libero nihil culpa explicabo perspiciatis veritatis non
@@ -109,33 +122,41 @@
             <span class="popuptext" id="popupLine">Popup text...</span>
           </div>
         </h3>
-        <div class="flex mt-2">
+        <div class="dInline2">
+          <label for="selectButton">Emission Type: &nbsp;</label>
+          <select
+            id="selectButton"
+            class="form-select mt-1"
+            onchange="filterResult(this.value)"
+          ></select>
+        </div>
+
+        <div class="flex mt-1 mb-1">
           <div class="graphDiv">
             <div class="">
-              <select id="selectButton" class="form-select"></select>
-
-              <div id="lineChart"></div>
+              <!-- <canvas id="lineChart" width="300" height="100"></canvas> -->
+              <div style="width: 500px; height: 350px">
+                <canvas id="lineChart"></canvas>
+              </div>
             </div>
           </div>
           <div class="textDiv">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus
-            mollitia, perferendis sunt nemo, magnam modi saepe sapiente esse,
-            ipsum dolores dolorem officia exercitationem minima aperiam. Itaque
-            beatae illo dolorum ex!<br />Magnam obcaecati sit tempora possimus
-            recusandae modi sint, quam accusamus, adipisci voluptatem eligendi
-            consectetur ipsa, dolorem voluptatibus corrupti ducimus quisquam
-            doloribus aliquid porro explicabo facilis cum! Sit vel hic earum?<br />Dicta
-            fugiat saepe dolore, accusantium eos expedita explicabo, delectus
-            quasi consectetur corporis accusamus maxime laborum veniam quam,
-            officiis dolor odio itaque fugit magni culpa natus nihil inventore
-            omnis. Ipsum, et!<br />
+            <h4>Description</h4>
+            <p id="desc"></p>
           </div>
         </div>
+        <p>
+          Adipisci amet aut sint voluptates delectus aperiam? Veniam ab illum
+          enim in libero nihil culpa explicabo perspiciatis veritatis non
+          repellendus architecto excepturi nostrum porro voluptatem aperiam
+          animi asperiores, a voluptatibus temporibus minima voluptas ipsa!
+          Recusandae nostrum, aut, voluptates est error iusto, eaque excepturi
+          soluta quas maiores amet.
+        </p>
       </div>
     </section>
     <section id="third">
       <div class="container">
-
         <div class="graph3">
           <h3>
             Singapore Recycling Areas

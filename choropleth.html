@@ -13,12 +13,6 @@
   <body>
     <!-- dropdown -->
     <select id="dropdown"></select>
-    <!-- neighborhood and its value -->
-    <div id="tooltip">
-      <h3><span id="neighborhood">&nbsp;</span></h3>
-      <h5><span id="datum">&nbsp;</span></h5>
-    </div>
-
     <!-- map -->
     <div id="block"></div>
     <svg></svg>
@@ -151,7 +145,7 @@
       ]).then((data) => {
         map = data[0].features;
         co2Data = data[1];
-        console.log(map[0].properties.name);
+        // console.log(map[0].properties.name);
         dataJson = {};
         for (let i = 0; i < map.length; i++) {
           for (let x = 0; x < co2Data.length; x++) {
@@ -172,7 +166,7 @@
           }
         }
 
-        console.log(typeof dataJson["Afghanistan"]);
+        console.log(dataJson["Antarctica"]);
         // console.log(typeof (dataJson["Singapore"][2001]))
 
         console.log(dataJson);
