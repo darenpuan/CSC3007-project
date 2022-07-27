@@ -64,84 +64,79 @@
               if (d.properties.name == countryList[i]) {
                 if (
                   dataJson[countryList[i]][selected_dataset] > 0 &&
-                  dataJson[countryList[i]][selected_dataset] <= 10
+                  dataJson[countryList[i]][selected_dataset] <= 100
                 ) {
                   return "#FBDCDC";
                 } else if (
-                  dataJson[countryList[i]][selected_dataset] > 10 &&
-                  dataJson[countryList[i]][selected_dataset] <= 100
+                  dataJson[countryList[i]][selected_dataset] > 100 &&
+                  dataJson[countryList[i]][selected_dataset] <= 500
                 ) {
                   return "#FFD4C9";
                 } else if (
-                  dataJson[countryList[i]][selected_dataset] > 10 &&
-                  dataJson[countryList[i]][selected_dataset] <= 100
-                ) {
-                  return "#FBB7B5";
-                } else if (
-                  dataJson[countryList[i]][selected_dataset] > 100 &&
-                  dataJson[countryList[i]][selected_dataset] <= 200
-                ) {
-                  return "#F9A5A0";
-                } else if (
-                  dataJson[countryList[i]][selected_dataset] > 200 &&
-                  dataJson[countryList[i]][selected_dataset] <= 400
-                ) {
-                  return "#F5928C";
-                } else if (
-                  dataJson[countryList[i]][selected_dataset] > 400 &&
-                  dataJson[countryList[i]][selected_dataset] <= 600
-                ) {
-                  return "#F17F76";
-                } else if (
-                  dataJson[countryList[i]][selected_dataset] > 600 &&
-                  dataJson[countryList[i]][selected_dataset] <= 800
-                ) {
-                  return "#EB6C61";
-                } else if (
-                  dataJson[countryList[i]][selected_dataset] > 800 &&
+                  dataJson[countryList[i]][selected_dataset] > 500 &&
                   dataJson[countryList[i]][selected_dataset] <= 1000
                 ) {
-                  return "#E4594B";
+                  return "#FBB7B5";
                 } else if (
                   dataJson[countryList[i]][selected_dataset] > 1000 &&
                   dataJson[countryList[i]][selected_dataset] <= 4000
                 ) {
+                  return "#F9A5A0";
+                } else if (
+                  dataJson[countryList[i]][selected_dataset] > 1000 &&
+                  dataJson[countryList[i]][selected_dataset] <= 10000
+                ) {
+                  return "#F5928C";
+                } else if (
+                  dataJson[countryList[i]][selected_dataset] > 40000 &&
+                  dataJson[countryList[i]][selected_dataset] <= 40000
+                ) {
+                  return "#F17F76";
+                } else if (
+                  dataJson[countryList[i]][selected_dataset] > 600 &&
+                  dataJson[countryList[i]][selected_dataset] <= 100000
+                ) {
+                  return "#EB6C61";
+                } else if (
+                  dataJson[countryList[i]][selected_dataset] > 800 &&
+                  dataJson[countryList[i]][selected_dataset] <= 140000
+                ) {
+                  return "#E4594B";
+                } else if (
+                  dataJson[countryList[i]][selected_dataset] > 1000 &&
+                  dataJson[countryList[i]][selected_dataset] <= 200000
+                ) {
                   return "#DC4435";
                 } else if (
                   dataJson[countryList[i]][selected_dataset] > 4000 &&
-                  dataJson[countryList[i]][selected_dataset] <= 6000
+                  dataJson[countryList[i]][selected_dataset] <= 240000
                 ) {
                   return "#D32C1E";
-                } else if (
-                  dataJson[countryList[i]][selected_dataset] > 600 &&
-                  dataJson[countryList[i]][selected_dataset] <= 11000
-                ) {
-                  return "#9C2900";
                 } else {
-                  // return "#D7DCFC";
-                  return "black";
+                  return "#D7DCFC";
+                  // return "black";
                 }
               }
             }
           });
       }
       var geomap;
-      let legendRetangleSize = 20;
+      let legendRetangleSize = 30;
       var countryList = [];
       let legends = [
-        { label: "No Data", color: "black" },
+        { label: "No Data", color: "#D7DCFC" },
         // { label: "No Data", color: "#D7DCFC" },
         { label: 0, color: "#FBDCDC" },
-        { label: 10, color: "#FFD4C9" },
-        { label: 100, color: "#fbb7b5" },
-        { label: 200, color: "#f9a5a0" },
-        { label: 400, color: "#f5928c" },
-        { label: 600, color: "#f17f76" },
-        { label: 800, color: "#eb6c61" },
-        { label: 1000, color: "#e4594b" },
-        { label: 4000, color: "#dc4435" },
-        { label: 6000, color: "#d32c1e" },
-        { label: 11000, color: "#9c2900" },
+        { label: 100, color: "#FFD4C9" },
+        { label: 500, color: "#fbb7b5" },
+        { label: 1000, color: "#f9a5a0" },
+        { label: 4000, color: "#f5928c" },
+        { label: 10000, color: "#f17f76" },
+        { label: 40000, color: "#eb6c61" },
+        { label: 100000, color: "#e4594b" },
+        { label: 140000, color: "#dc4435" },
+        { label: 200000, color: "#d32c1e" },
+        { label: 240000, color: "#9c2900" },
       ];
 
       // Map and projection
@@ -205,13 +200,13 @@
         // console.log(co2_values);
         min_co2_value = Math.min(...co2_values);
         max_co2_value = Math.max(...co2_values);
-        console.log(min_co2_value);
-        console.log(max_co2_value);
+        console.log('min co2: ',min_co2_value);
+        console.log('max co2: ',max_co2_value);
         function displayData(d, selected_dataset) {
           try {
             if (dataJson[d.properties.name][selected_dataset] == undefined) {
-              // dataString = d.properties.name + ": No Data"
-              dataString = "No Data";
+              dataString = d.properties.name + ": No Data"
+              // dataString = "No Data";
             } else {
               dataString =
                 d.properties.name +
