@@ -84,7 +84,10 @@
             climate change, the world needs to urgently reduce emissions. But,
             how this responsibility is shared between regions, countries, and
             individuals has been an endless point of contention in international
-            discussions.
+            discussions. To reach our climate goal of limiting average
+            temperature rise to 2°C, the world needs to urgently reduce
+            emissions. Who should lead the charge? The countries that
+            contributed most?
           </p>
         </div>
         <h3 class="mt-2">
@@ -102,15 +105,26 @@
           <svg class="map"></svg>
           <div class="tooltip"></div>
         </div>
-
-        <p>
-          Adipisci amet aut sint voluptates delectus aperiam? Veniam ab illum
-          enim in libero nihil culpa explicabo perspiciatis veritatis non
-          repellendus architecto excepturi nostrum porro voluptatem aperiam
-          animi asperiores, a voluptatibus temporibus minima voluptas ipsa!
-          Recusandae nostrum, aut, voluptates est error iusto, eaque excepturi
-          soluta quas maiores amet.
-        </p>
+        <div class="">
+          <ul type="square">
+            <li>
+              From the mid 20th Century, the United States has emitted more CO2
+              than any other country: at about 400 billion tonnes, it is
+              responsible for 25% of historical emissions;
+            </li>
+            <li>
+              The amount is twice that of the world's second largest national
+              contributor, China.
+            </li>
+            <li>
+              Some of the large emitters today - such as India and Brazil - are
+              not large contributors in a historical context.
+            </li>
+            <li>
+              To date, Singapore has contributed 2.16 billion tonnes of CO2.
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
     <section id="second">
@@ -123,7 +137,7 @@
           </div>
         </h3>
         <div class="dInline2">
-          <label for="selectButton">Emission Type: &nbsp;</label>
+          <label for="selectButton">Type: &nbsp;</label>
           <select
             id="selectButton"
             class="form-select mt-1"
@@ -146,12 +160,10 @@
           </div>
         </div>
         <p>
-          Adipisci amet aut sint voluptates delectus aperiam? Veniam ab illum
-          enim in libero nihil culpa explicabo perspiciatis veritatis non
-          repellendus architecto excepturi nostrum porro voluptatem aperiam
-          animi asperiores, a voluptatibus temporibus minima voluptas ipsa!
-          Recusandae nostrum, aut, voluptates est error iusto, eaque excepturi
-          soluta quas maiores amet.
+          Singapore has made significant contributions to the World's CO2
+          emmisions. The graph shows the cumulative levels of various
+          contributing factors to CO2. For data points at 0, there is no data
+          collected for that year.
         </p>
       </div>
     </section>
@@ -162,13 +174,63 @@
             Singapore Recycling Areas
             <div class="popup" onclick="popLeaf()">
               <i class="fa fa-info-circle" aria-hidden="true"></i>
-              <span class="popuptext" id="popupLeaf">Popup text...</span>
+              <span class="popuptext" id="popupLeaf"
+                ><p>Data: E-Waste Recycling Location, Second Hand Location</p>
+                <p>
+                  How: The visualization is represented as a Geospatial
+                  Visualization to display the location of the E-Waste Recycling
+                  and Second Hand Location.
+                </p>
+                <p>
+                  Why: With the increase of carbon emission especially co2, it
+                  causes the global temperature to rise. Hence, Singaporeans
+                  should play apart to help to save the earth by recycling their
+                  item or donate them to a second hand shop.
+                </p>
+              </span>
             </div>
           </h3>
           <div class="container">
-            <div class="row mt-12" id="mapdiv" style="height: 620px"></div>
+            <div class="" id="mapdiv" style="height: 620px"></div>
+            <p class="mt-2">
+              To help reduce Singapore's carbon footprint, Singaporeans can go
+              to any of the above E-Waste Recycling Centres or Second-Hand Shops
+              to dispose of their unwanted items.
+            </p>
           </div>
         </div>
+      </div>
+    </section>
+    <section id="others">
+      <div class="container">
+        <h3>Others</h3>
+        <details>
+          <summary>Contributions</summary>
+          <p>
+            This site was built by Daren, Michelle & Nu Win with all
+            contributing equal efforts to the project.
+          </p>
+        </details>
+        <details>
+          <summary>Pitfalls Encountered</summary>
+            <p>
+              The geojson data and co2 data that was gathered had different
+              naming conventions for the countries, as such renaming was
+              required to ensure that the data is able to match.
+            </p>
+            <p>
+              Using D3 to do the line chart led to some issues with the Y-Axis not refreshing, upon fixing it, the transition did not work for switching between graphs. Chart.js was used in the end to display the data.
+            </p>
+        </details>
+        <details>
+          <summary>Future Work</summary>
+          <p>
+            A better story line.
+          </p>
+          <p>
+            More interactive graphs (i.e. showing the CO2 emission trend when user hovers over the interested country.)
+          </p>
+        </details>
       </div>
     </section>
     <div class="footerContainer">
