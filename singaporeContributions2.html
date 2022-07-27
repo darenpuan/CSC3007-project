@@ -29,16 +29,15 @@
     var color = {};
 
     function filterResult(query) {
-        // console.log(query)
-        
+      
         if (query.includes("_per_capita")) {
-            label = "Singapaore (tonnes per person)";
+            label = "Singapaore (Tonnes Per Person)";
         } else if (query.includes("_per_gdp")) {
             label = "Singapore (KG per dollar of GDP)";
         } else {
-            label = "Singapore (Miles per Tonnes)";
+            label = "Singapore (Million Tonnes)";
         }
-        // console.log(descSG[query])
+
         yData = []
         for (const valueSg of filteredSG) {
             yData.push(valueSg[query])
@@ -131,7 +130,7 @@
             labels: Array.from(allYear),
             datasets: [
                 {
-                    label: 'Singapore (Miles per Tonnes)',
+                    label: 'Singapore (Million Tonnes)',
                     data: yData,
                     fill: false,
                     borderColor: '#ff6361',
