@@ -16,27 +16,40 @@
 
 <body>
     <select id="selectButton" onchange="filterResult(this.value)"></select>
-    <!-- <canvas id="lineChart" width="300" height="100"></canvas> -->
     <div style="width:600px;height:350px">
         <canvas id="lineChart"></canvas>
     </div>
-    
+    <h3>Description</h3>
+    <p id="desc" style="width:600px;"></p>
 </body>
 <script>
     let filteredSG;
+    let descSG = {};
     var myChart;
     var color = {};
 
     function filterResult(query) {
-        console.log(query)
+        // console.log(query)
+        
+        if (query.includes("_per_capita")) {
+            label = "Singapaore (tonnes per person)";
+        } else if (query.includes("_per_gdp")) {
+            label = "Singapore (KG per dollar of GDP)";
+        } else {
+            label = "Singapore (Miles per Tonnes)";
+        }
+        // console.log(descSG[query])
         yData = []
         for (const valueSg of filteredSG) {
             yData.push(valueSg[query])
         }
+        myChart.data.datasets[0].label = label;
         myChart.data.datasets[0].data = yData;
         myChart.data.datasets[0].borderColor = color[query];
         myChart.update();
+        document.getElementById("desc").innerHTML = descSG[query];
     }
+
     //Read the data
     d3.csv("./owid-co2-data.csv").then(function (data) {
         let sg = [];
@@ -95,7 +108,7 @@
             "#7D3C98",
             "#ABEBC6"
         ];
-        
+
         var counter = 0
         for (const type of allType) {
             color[type] = allColors[counter];
@@ -118,7 +131,7 @@
             labels: Array.from(allYear),
             datasets: [
                 {
-                    label: 'Singapore',
+                    label: 'Singapore (Miles per Tonnes)',
                     data: yData,
                     fill: false,
                     borderColor: '#ff6361',
@@ -154,6 +167,17 @@
                 }
             },
         });
+
+        //Read the data
+        d3.csv("./owid-co2-codebook.csv").then(function (data) {
+            for (let i = 0; i < data.length; i++) {
+                var colName = data[i].column;
+                if (allType.includes(colName)) {
+                    descSG[colName] = data[i].description;
+                }
+            }
+            document.getElementById("desc").innerHTML = descSG['co2'];
+        })
     });
 
 
