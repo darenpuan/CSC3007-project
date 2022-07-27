@@ -1769,7 +1769,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "The Bahamas"
+                "name": "Bahamas"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -3771,7 +3771,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "Ivory Coast"
+                "name": "Cote d'Ivoire"
             },
             "geometry": {
                 "type": "Polygon",
@@ -3906,7 +3906,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "Democratic Republic of the Congo"
+                "name": "Democratic Republic of Congo"
             },
             "geometry": {
                 "type": "Polygon",
@@ -4042,7 +4042,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "Republic of the Congo"
+                "name": "Democratic Republic of Congo"
             },
             "geometry": {
                 "type": "Polygon",
@@ -4384,7 +4384,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "Czech Republic"
+                "name": "Czechia"
             },
             "geometry": {
                 "type": "Polygon",
@@ -5106,7 +5106,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "Falkland Islands"
+                "name": "Faeroe Islands"
             },
             "geometry": {
                 "type": "Polygon",
@@ -5273,7 +5273,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "England"
+                "name": "United Kingdom"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -5540,7 +5540,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "Guinea Bissau"
+                "name": "Guinea-Bissau"
             },
             "geometry": {
                 "type": "Polygon",
@@ -8118,7 +8118,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "Macedonia"
+                "name": "North Macedonia"
             },
             "geometry": {
                 "type": "Polygon",
@@ -11362,7 +11362,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "Somaliland"
+                "name": "Somalia"
             },
             "geometry": {
                 "type": "Polygon",
@@ -11450,7 +11450,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "Republic of Serbia"
+                "name": "Serbia"
             },
             "geometry": {
                 "type": "Polygon",
@@ -11675,31 +11675,6 @@
                         [23.56588, 66.396051],
                         [23.903379, 66.006927],
                         [22.183173, 65.723741]
-                    ]
-                ]
-            },
-            "id": "SWE"
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "name": "Swaziland"
-            },
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [32.071665, -26.73382],
-                        [31.86806, -27.177927],
-                        [31.282773, -27.285879],
-                        [30.685962, -26.743845],
-                        [30.676609, -26.398078],
-                        [30.949667, -26.022649],
-                        [31.04408, -25.731452],
-                        [31.333158, -25.660191],
-                        [31.837778, -25.843332],
-                        [31.985779, -26.29178],
-                        [32.071665, -26.73382]
                     ]
                 ]
             },
@@ -12055,7 +12030,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "East Timor"
+                "name": "Timor"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12257,7 +12232,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "United Republic of Tanzania"
+                "name": "Tanzania"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12508,7 +12483,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "USA"
+                "name": "United States"
             },
             "geometry": {
                 "type": "MultiPolygon",
